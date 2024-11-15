@@ -1,9 +1,11 @@
-const apiKey = 'YOUR_API_KEY';
+const apiKey = '784309b309418bff1d9696f579f52d33';
 
 document.getElementById('searchButton').addEventListener('click', function() {
     const city = document.getElementById('cityInput').value;
     if (city) {
         getWeather(city);
+    } else {
+        showError('Моля, въведете име на град.');
     }
 });
 
