@@ -1,5 +1,10 @@
 const apiKey = '784309b309418bff1d9696f579f52d33';
 
+// Start with default page
+const defaultCityName = 'Dubai';
+getWeather(defaultCityName);
+    
+
 document.getElementById('searchButton').addEventListener('click', function () {
     const city = document.getElementById('cityInput').value;
     if (city) {
@@ -40,10 +45,10 @@ function displayWeather(data) {
 
     document.querySelector('#weatherResult').style.display = 'flex';
 
-    document.querySelector('.weather-image > #img-description').textContent =
+    document.querySelector('#img-description').textContent =
         description;
 
-    document.querySelector('.city-name-degrees > #city-degrees').textContent =
+    document.querySelector('#city-degrees').textContent =
         temperature;
 
     document.querySelector('#feel-temp').textContent = feelsLike;
