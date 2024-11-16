@@ -173,7 +173,7 @@ form #searchButton:hover {
 }
 
 .result-container {
-    display: flex;
+    display: none; /* will become flex when needed*/
     flex-direction: column;
     font-size:x-large ;
 }

@@ -38,6 +38,8 @@ function displayWeather(data) {
     const windSpeed = data.wind.speed.toFixed(0);
     const icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
 
+    document.querySelector('#weatherResult').style.display = 'flex';
+
     document.querySelector('.weather-image > #img-description').textContent =
         description;
 
@@ -54,8 +56,8 @@ function displayWeather(data) {
 }
 
 function showError(message) {
-    document.getElementById('errorMessage').innerHTML = message;
-    document.getElementById('weatherResult').innerHTML = '';
+    document.getElementById('errorMessage').textContent = message;
+    document.querySelector('#weatherResult').style.display = 'none';
 }
 
 function getLocationWeather() {
