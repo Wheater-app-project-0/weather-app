@@ -87,7 +87,7 @@ img {
     display: block;
     width: 100%;
     height: auto;
-    display: none;
+    /* display: none; */
     
 }
 
@@ -192,6 +192,7 @@ form #searchButton:hover {
 }
 
 .city-name-degrees {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -201,13 +202,17 @@ form #searchButton:hover {
 .city-name-degrees h3 {
     font-size: 3em;
     font-weight: 600;
+    text-align: center;
 }
 .city-name-degrees .fa-location-arrow {
-    font-size: 0.8em;
+    font-size: 2em;
     margin-right: 0.3em;
+    position: absolute;
+    left: -16%;
+    top: 12%;
 }
 .city-name-degrees p {
-    font-size: 10em;
+    font-size: 6em;
     font-weight: 800;
     line-height: 1em;
     position: relative;
@@ -220,7 +225,7 @@ form #searchButton:hover {
     padding: 0.5rem;
     border-radius: 50%;
     top: 0.1em;
-    left: 1.2em;
+    left: 1em;
 }
 
 .additional-info {
@@ -238,7 +243,7 @@ form #searchButton:hover {
     justify-content: space-between;
     align-items: center;
     color: #fff;
-    gap: 5.5em;
+    gap: 1.5em;
     font-size: 3em;
     padding: 0.5em 1.7em;
     border-radius: 0.3em;
