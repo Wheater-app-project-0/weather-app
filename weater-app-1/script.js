@@ -43,6 +43,8 @@ function displayWeather(data) {
     const windSpeed = data.wind.speed.toFixed(0);
     const icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
 
+    // document.getElementById('img-weather').src = icon; // we can use this icons
+
     document.querySelector('#weatherResult').style.display = 'flex';
 
     document.querySelector('#img-description').textContent =
