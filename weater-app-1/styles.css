@@ -41,8 +41,6 @@ img {
     display: block;
     width: 100%;
     height: auto;
-    /* display: none; */
-    
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -102,7 +100,7 @@ form #cityInput {
     background-color: transparent;
     border: 2px solid #fff;
     color: #fff;
-    outline: color(srgb rgb(161, 135, 135) rgb(98, 125, 98) rgb(107, 107, 152));
+    outline: none;
 }
 
 form #cityInput::placeholder {
@@ -126,12 +124,13 @@ form #searchButton:hover {
 }
 
 .result-container {
-    display: none; 
+    display: flex;
     flex-direction: column;
-    font-size:x-large ;
+    font-size: x-large ;
 }
 
 .head-info {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -144,13 +143,19 @@ form #searchButton:hover {
     font-size: 2em;
 }
 
-.city-name-degrees {
+.name-container,
+.degrees-container {
     position: relative;
+    display: flex;
+    align-items: baseline;
+}
+
+.city-name-degrees {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: baseline;
-    padding-right: 3em;
+    justify-content: center;
+    padding-right: 2em;
 }
 .city-name-degrees h3 {
     font-size: 3em;
@@ -160,15 +165,11 @@ form #searchButton:hover {
 .city-name-degrees .fa-location-arrow {
     font-size: 2em;
     margin-right: 0.3em;
-    position: absolute;
-    left: -16%;
-    top: 12%;
 }
 .city-name-degrees p {
     font-size: 6em;
     font-weight: 800;
-    line-height: 1em;
-    position: relative;
+    line-height: 0.8em;
 }
 
 .city-name-degrees p::after {
@@ -177,8 +178,8 @@ form #searchButton:hover {
     border: 0.11em solid #fff;
     padding: 0.5rem;
     border-radius: 50%;
-    top: 0.1em;
-    left: 1em;
+    top: 0;
+    left: 110%;
 }
 
 .additional-info {
@@ -190,7 +191,6 @@ form #searchButton:hover {
 .info-container {
     background: linear-gradient(rgba(0, 0, 0, 0.4),
     rgba(0, 0, 0, 0.3));
-    /* opacity: 0.4; */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -212,6 +212,10 @@ form #searchButton:hover {
 
 .feels-like {
     position: relative;
+}
+.feels-like p:nth-child(1) {
+    margin-bottom: 0.34em;
+    line-height: 1.4em;
 }
 .feels-like p:nth-child(1)::after {
     position: absolute;
