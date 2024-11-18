@@ -36,24 +36,27 @@ function displayWeather(data) {
     const feelsLike = data.main.feels_like.toFixed(0);
     const humidity = data.main.humidity;
     const windSpeed = data.wind.speed.toFixed(0);
-    const iconCode = data.weather[0].icon; 
-    const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
-    
+    const icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
 
     document.querySelector('#weatherResult').style.display = 'flex';
 
-   
-    const weatherImageElement = document.querySelector('.weather-image > #weather-icon');
-    weatherImageElement.src = iconUrl;
-    weatherImageElement.alt = description;
 
-    
     document.querySelector('.weather-image > #img-description').textContent = description;
     document.querySelector('.city-name-degrees > #city-degrees').textContent = temperature;
     document.querySelector('#feel-temp').textContent = feelsLike;
     document.querySelector('#humidity-info > #feel-temp > #humidity-value').textContent = humidity;
     document.querySelector('#winds-info > #wind-temp > #wind-value').textContent = windSpeed;
-} 
+
+
+    const weatherImage = document.querySelector('#img-weather');
+    weatherImage.src = icon;
+    weatherImage.alt = description;
+
+    const weatherCondition = data.weather[0].main.toLowerCase();
+    const body = document.body;
+
+}
 
 function showError(message) {
     document.getElementById('errorMessage').textContent = message;
