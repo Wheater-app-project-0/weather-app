@@ -1,5 +1,10 @@
 const apiKey = '784309b309418bff1d9696f579f52d33';
 
+// Start with default page
+const defaultCityName = 'Dubai';
+getWeather(defaultCityName);
+    
+
 document.getElementById('searchButton').addEventListener('click', function () {
     const city = document.getElementById('cityInput').value;
     if (city) {
@@ -36,26 +41,25 @@ function displayWeather(data) {
     const feelsLike = data.main.feels_like.toFixed(0);
     const humidity = data.main.humidity;
     const windSpeed = data.wind.speed.toFixed(0);
-    const icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+    const icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
 
+    // document.getElementById('img-weather').src = icon; // we can use this icons
 
     document.querySelector('#weatherResult').style.display = 'flex';
 
+    document.querySelector('#img-description').textContent =
+        description;
 
-    document.querySelector('.weather-image > #img-description').textContent = description;
-    document.querySelector('.city-name-degrees > #city-degrees').textContent = temperature;
+    document.querySelector('#city-degrees').textContent =
+        temperature;
+
     document.querySelector('#feel-temp').textContent = feelsLike;
-    document.querySelector('#humidity-info > #feel-temp > #humidity-value').textContent = humidity;
-    document.querySelector('#winds-info > #wind-temp > #wind-value').textContent = windSpeed;
-
-
-    const weatherImage = document.querySelector('#img-weather');
-    weatherImage.src = icon;
-    weatherImage.alt = description;
-
-    const weatherCondition = data.weather[0].main.toLowerCase();
-    const body = document.body;
-
+    document.querySelector(
+        '#humidity-info > #feel-temp > #humidity-value'
+    ).textContent = humidity;
+    document.querySelector(
+        '#winds-info > #wind-temp > #wind-value'
+    ).textContent = windSpeed;
 }
 
 function showError(message) {
