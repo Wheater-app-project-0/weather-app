@@ -41,9 +41,12 @@ function displayWeather(data) {
     const feelsLike = data.main.feels_like.toFixed(0);
     const humidity = data.main.humidity;
     const windSpeed = data.wind.speed.toFixed(0);
-    const icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+    const icon = data.weather[0].icon;
 
-    // document.getElementById('img-weather').src = icon; // we can use this icons
+
+    const weatherImage = document.getElementById('img-weather');
+    weatherImage.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+    weatherImage.alt = description;
 
     document.querySelector('#weatherResult').style.display = 'flex';
 
