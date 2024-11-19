@@ -1,5 +1,10 @@
 const apiKey = '784309b309418bff1d9696f579f52d33';
 
+// Start with default page
+const defaultCityName = 'Dubai';
+getWeather(defaultCityName);
+    
+
 document.getElementById('searchButton').addEventListener('click', function () {
     const city = document.getElementById('cityInput').value;
     if (city) {
@@ -36,14 +41,32 @@ function displayWeather(data) {
     const feelsLike = data.main.feels_like.toFixed(0);
     const humidity = data.main.humidity;
     const windSpeed = data.wind.speed.toFixed(0);
-    const icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+    const icon = data.weather[0].icon;
+
+
+    const images = {
+        "clear": "../images/background-clear.webp",
+        "fog": "../images/background-fog.jpg",
+        "clouds": "../images/background-overcast-clouds.jpg",
+        "cloud": "../images/background-cloud.jpg",
+        "rain": "../images/background-rain.webp",
+        "snow": "../images/background-snowfall.jpg",
+        "storm": "../images/background-storm.jpg",
+        "default": "../images/background-default.webp",
+      };
+      changeBackgroundImage(description, images);
+
+
+    const weatherImage = document.getElementById('img-weather');
+    weatherImage.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+    weatherImage.alt = description;
 
     document.querySelector('#weatherResult').style.display = 'flex';
 
-    document.querySelector('.weather-image > #img-description').textContent =
+    document.querySelector('#img-description').textContent =
         description;
 
-    document.querySelector('.city-name-degrees > #city-degrees').textContent =
+    document.querySelector('#city-degrees').textContent =
         temperature;
 
     document.querySelector('#feel-temp').textContent = feelsLike;
@@ -53,6 +76,27 @@ function displayWeather(data) {
     document.querySelector(
         '#winds-info > #wind-temp > #wind-value'
     ).textContent = windSpeed;
+}
+
+function changeBackgroundImage(description, images) {
+    const typeWeather = description.trim().toLowerCase();
+    const matchingImages = [];
+
+
+    for (let imageName in images) {
+        if (typeWeather.includes(imageName)) {
+            matchingImages.push(imageName);
+        }
+    }
+
+    if (matchingImages.length > 0) {
+        // If there are matches, set the background to the first match
+        const selectedImage = matchingImages[0];
+        document.body.style.backgroundImage = `url(${images[selectedImage]})`;
+    } else {
+        // If no matches, show an default image
+        document.body.style.backgroundImage = `url(${images['default']})`;
+    }
 }
 
 function showError(message) {
