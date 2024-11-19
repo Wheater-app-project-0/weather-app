@@ -50,6 +50,7 @@ function displayWeather(data) {
         "clouds": "../images/background-overcast-clouds.jpg",
         "cloud": "../images/background-cloud.jpg",
         "rain": "../images/background-rain.webp",
+        "snow": "../images/background-snowfall.jpg",
         "storm": "../images/background-storm.jpg",
         "default": "../images/background-default.webp",
       };
@@ -93,7 +94,7 @@ function changeBackgroundImage(description, images) {
         const selectedImage = matchingImages[0];
         document.body.style.backgroundImage = `url(${images[selectedImage]})`;
     } else {
-        // If no matches, show an error message
+        // If no matches, show an default image
         document.body.style.backgroundImage = `url(${images['default']})`;
     }
 }

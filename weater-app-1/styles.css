@@ -31,7 +31,7 @@ body, input, button, textarea, table, address, th, td {
 body {
     background: linear-gradient(rgba(0, 0, 0, 0.4),
     rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1),
-     rgba(0, 0, 0, 0.2)), url('images/background-cloud.jpg')
+     rgba(0, 0, 0, 0.2)), url('images/background-default.webp')
     no-repeat fixed center;
     background-size: cover;
     color: #fff;
