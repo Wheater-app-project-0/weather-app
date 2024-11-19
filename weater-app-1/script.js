@@ -44,6 +44,18 @@ function displayWeather(data) {
     const icon = data.weather[0].icon;
 
 
+    const images = {
+        "clear": "../images/background-clear.webp",
+        "fog": "../images/background-fog.jpg",
+        "clouds": "../images/background-overcast-clouds.jpg",
+        "cloud": "../images/background-cloud.jpg",
+        "rain": "../images/background-rain.webp",
+        "storm": "../images/background-storm.jpg",
+        "default": "../images/background-default.webp",
+      };
+      changeBackgroundImage(description, images);
+
+
     const weatherImage = document.getElementById('img-weather');
     weatherImage.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
     weatherImage.alt = description;
@@ -63,6 +75,27 @@ function displayWeather(data) {
     document.querySelector(
         '#winds-info > #wind-temp > #wind-value'
     ).textContent = windSpeed;
+}
+
+function changeBackgroundImage(description, images) {
+    const typeWeather = description.trim().toLowerCase();
+    const matchingImages = [];
+
+
+    for (let imageName in images) {
+        if (typeWeather.includes(imageName)) {
+            matchingImages.push(imageName);
+        }
+    }
+
+    if (matchingImages.length > 0) {
+        // If there are matches, set the background to the first match
+        const selectedImage = matchingImages[0];
+        document.body.style.backgroundImage = `url(${images[selectedImage]})`;
+    } else {
+        // If no matches, show an error message
+        document.body.style.backgroundImage = `url(${images['default']})`;
+    }
 }
 
 function showError(message) {
