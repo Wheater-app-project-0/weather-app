@@ -2,7 +2,7 @@ const apiKey = '784309b309418bff1d9696f579f52d33';
 
 // Start with default page
 const defaultCityName = 'Dubai';
-getWeather(defaultCityName);
+getWeather(getLocationWeather());
     
 
 document.getElementById('searchButton').addEventListener('click', function () {
