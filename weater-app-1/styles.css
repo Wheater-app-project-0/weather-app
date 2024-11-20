@@ -35,6 +35,7 @@ body {
     no-repeat fixed center;
     background-size: cover;
     color: #fff;
+    transition: background-image 0.5s ease-in-out;
 }
 
 img {
@@ -75,6 +76,7 @@ li {
     text-shadow: 1px 1px 1px black,
     0 0 0.12em #fff,
     0 0 0.12em #fff;
+    transition: opacity 0.3s ease-in-out;
 }
 .container h1 {
     font-size: 4.8em;
