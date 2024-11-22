@@ -17,7 +17,60 @@
                 </button>
             </form>
             <div id="weatherResult" class="result-container">
-                <section class="head-info">
+                <div class="buttons-container">
+                    <button id="day-btn" class="btn day-btn" autofocus>Today</button>
+                    <button id="week-btn" class="btn week-btn">5-Days</button>
+                </div>
+
+                <section class="five-days" id="fiveDays-info">
+                    <div class="day day1">
+                        <h3 class="day-name">Monday</h3>
+                        <article class="image-icon-content image1">
+                            <img id="first-icon" src="images/sunny.png" alt="">
+                        </article>
+                        <article class="temp-data">
+                            <p class="degrees">20</p>
+                        </article>
+                    </div>
+                    <div class="day day2">
+                        <h3 class="day-name">Tuesday</h3>
+                        <article class="image-icon-content">
+                            <img id="second-icon" src="images/cloudy storm.png" alt="">
+                        </article>
+                        <article class="temp-data">
+                            <p class="degrees">20</p>
+                        </article>
+                    </div>
+                    <div class="day day3">
+                        <h3 class="day-name">Wednesday</h3>
+                        <article class="image-icon-content">
+                            <img id="third-icon" src="images/sunny.png" alt="">
+                        </article>
+                        <article class="temp-data">
+                            <p class="degrees">20</p>
+                        </article>
+                    </div>
+                    <div class="day day4">
+                        <h3 class="day-name">Thursday</h3>
+                        <article class="image-icon-content">
+                            <img id="fourth-icon" src="images/cloudy storm.png" alt="">
+                        </article>
+                        <article class="temp-data">
+                            <p class="degrees">20</p>
+                        </article>
+                    </div>
+                    <div class="day day5">
+                        <h3 class="day-name">Friday</h3>
+                        <article class="image-icon-content image5">
+                            <img id="fifth-icon" src="images/sunny.png" alt="">
+                        </article>
+                        <article class="temp-data">
+                            <p class="degrees">20</p>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="head-info" id="day-info">
                     <article class="weather-image">
                         <img
                             id="img-weather"

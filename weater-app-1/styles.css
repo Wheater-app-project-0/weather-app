@@ -9,15 +9,15 @@
 }
 
 html {
-    font: 11px/1.5 "Lato", sans-serif;
+    font: 10px/1.5 "Lato", sans-serif;
 }
 
 @media (min-width: 600px) {
-    html { font-size: 12px; }
+    html { font-size: 11px; }
 }
 
 @media (min-width: 800px) {
-    html { font-size: 14px; }
+    html { font-size: 12px; }
 }
 
 @media (min-width: 1200px) {
@@ -128,7 +128,8 @@ form #searchButton:hover {
 .result-container {
     display: flex;
     flex-direction: column;
-    font-size: x-large ;
+    /* font-size: x-large; */
+    font-size: 1.5em;
 }
 
 .head-info {
@@ -234,4 +235,88 @@ form #searchButton:hover {
 .info-container .fa-solid {
     font-size: 0.7em;
     margin-left: 0.3em;
+}
+
+
+
+/* ================================= */
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+}
+.buttons-container .btn {
+    flex: 0 0 35%;
+    background-color: #00000041;
+    border: none;
+    color: #fff;
+    padding: 0.5em 0;
+    font-weight: 600;
+
+}
+.buttons-container .btn:hover {
+    cursor: pointer;
+    background-color: #bababa7a;
+}
+.buttons-container .btn:focus {
+    background-color: #0000007a;
+    outline: none;
+} 
+
+.day-btn {
+    border-top-left-radius: 0.4em;
+    border-bottom-left-radius: 0.4em;
+}
+.week-btn {
+    border-top-right-radius: 0.4em;
+    border-bottom-right-radius: 0.4em;
+}
+
+.five-days {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 0.5em;
+    margin-top: 3em;
+    display: none;
+}
+.day {
+    background: #0000008f;
+    width: 17%;
+    padding: 1em 0;
+}
+.day h3 {
+    font-size: 1.4em;
+}
+.day .temp-data .degrees {
+    font-size: 1.4em;
+}
+.five-days .day1 {
+    border-top-left-radius: 0.3em;
+    border-bottom-left-radius: 0.3em;
+    overflow: hidden;
+}
+.five-days .day5 {
+    border-top-right-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    overflow: hidden;
+}
+.image-icon-content {
+    display: flex;
+    justify-content: center;
+}
+.image-icon-content img {
+    width: 80%;
+}
+.temp-data {
+    position: relative;
+}
+.temp-data p:after {
+    position: absolute;
+    content: '';
+    border: 0.11em solid #fff;
+    padding: 0.1rem;
+    border-radius: 50%;
+    top: 17%;
+    /* left: 12.5%; */
 }

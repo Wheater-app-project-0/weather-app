@@ -1,7 +1,10 @@
 const apiKey = '784309b309418bff1d9696f579f52d33';
 
+const fiveDaysContainer = document.getElementById('fiveDays-info');
+const dayContainer = document.getElementById('day-info');
+
 getLocationWeather();
-    
+
 
 document.getElementById('searchButton').addEventListener('click', function () {
     const city = document.getElementById('cityInput').value;
@@ -14,23 +17,23 @@ document.getElementById('searchButton').addEventListener('click', function () {
 
 function getWeather(city) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=en`;
-
+    
     document.querySelector('#city-name').textContent = city.toString();
     // the problem here is that it displays the city name in the way it was written
     //but it will do for now
-
+    
     fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.cod === 200) {
-                displayWeather(data);
-            } else {
-                showError('Градът не е намерен.');
-            }
-        })
-        .catch((error) => {
-            showError('Нямаме връзка с API-то.');
-        });
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.cod === 200) {
+            displayWeather(data);
+        } else {
+            showError('Градът не е намерен.');
+        }
+    })
+    .catch((error) => {
+        showError('Нямаме връзка с API-то.');
+    });
 }
 
 function displayWeather(data) {
@@ -40,33 +43,33 @@ function displayWeather(data) {
     const humidity = data.main.humidity;
     const windSpeed = data.wind.speed.toFixed(0);
     const icon = data.weather[0].icon;
-
-
+    
+    
     const images = {
         "clear": "../images/background-clear.webp",
         "fog": "../images/background-fog.jpg",
-        "clouds": "../images/background-overcast-clouds.jpg",
+        "overcast": "../images/background-overcast-clouds.jpg",
         "cloud": "../images/background-cloud.jpg",
         "rain": "../images/background-rain.webp",
         "snow": "../images/background-snowfall.jpg",
         "storm": "../images/background-storm.jpg",
         "default": "../images/background-default.webp",
-      };
-      changeBackgroundImage(description, images);
-
-
+    };
+    changeBackgroundImage(description, images);
+    
+    
     const weatherImage = document.getElementById('img-weather');
     weatherImage.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
     weatherImage.alt = description;
-
+    
     document.querySelector('#weatherResult').style.display = 'flex';
-
+    
     document.querySelector('#img-description').textContent =
-        description;
-
+    description;
+    
     document.querySelector('#city-degrees').textContent =
-        temperature;
-
+    temperature;
+    
     document.querySelector('#feel-temp').textContent = feelsLike;
     document.querySelector(
         '#humidity-info > #feel-temp > #humidity-value'
@@ -74,19 +77,38 @@ function displayWeather(data) {
     document.querySelector(
         '#winds-info > #wind-temp > #wind-value'
     ).textContent = windSpeed;
+    
+}
+
+// get current day information
+const currDayBtn = document.getElementById('day-btn');
+currDayBtn.addEventListener('focus', showCurrentDay);
+
+// get five days information
+const weekBtn = document.getElementById('week-btn');
+weekBtn.addEventListener('focus', showNextFiveDays);
+
+function showCurrentDay() {
+    fiveDaysContainer.style.display = 'none';
+    dayContainer.style.display = 'flex';
+}
+function showNextFiveDays() {
+    dayContainer.style.display = 'none';
+    fiveDaysContainer.style.display = 'flex';
+    
 }
 
 function changeBackgroundImage(description, images) {
     const typeWeather = description.trim().toLowerCase();
     const matchingImages = [];
-
-
+    
+    
     for (let imageName in images) {
         if (typeWeather.includes(imageName)) {
             matchingImages.push(imageName);
         }
     }
-
+    
     if (matchingImages.length > 0) {
         // If there are matches, set the background to the first match
         const selectedImage = matchingImages[0];
@@ -115,10 +137,10 @@ function getLocationWeather() {
 }
 
 function getWeatherByCoordinates(lat, lon) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=bg`;
-
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
+    
     fetch(url)
-        .then((response) => response.json())
-        .then((data) => displayWeather(data))
-        .catch((error) => showError('Нямаме връзка с API-то.'));
+    .then((response) => response.json())
+    .then((data) => displayWeather(data))
+    .catch((error) => showError('Нямаме връзка с API-то.'));
 }
