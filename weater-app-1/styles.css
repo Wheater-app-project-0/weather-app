@@ -319,3 +319,21 @@ form #searchButton:hover {
     border-radius: 50%;
     top: 17%;
 }
+
+.date-time-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin-bottom: 40px;
+    
+}
+
+.date-time {
+    color: white;
+    padding: 20px 105px;
+    border-radius: 12px;
+    font-size: 36px; 
+    font-weight: bold;
+    text-align: center;
+    background-color: #00000041;
+}
