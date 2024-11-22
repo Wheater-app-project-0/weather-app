@@ -256,12 +256,18 @@ form #searchButton:hover {
 }
 .buttons-container .btn:hover {
     cursor: pointer;
-    background-color: #bababa7a;
+    background: #bababa7a;
+    color: #066dad;
 }
 .buttons-container .btn:focus {
-    background-color: #0000007a;
+    background: #0000007a;
+    color: #fff;
+    cursor: initial;
     outline: none;
 } 
+.buttons-container .active {
+    background-color: #0000007a;
+}
 
 .day-btn {
     border-top-left-radius: 0.4em;
@@ -278,7 +284,6 @@ form #searchButton:hover {
     justify-content: center;
     gap: 0.5em;
     margin-top: 3em;
-    display: none;
 }
 .day {
     background: #0000008f;
@@ -318,4 +323,23 @@ form #searchButton:hover {
     padding: 0.1rem;
     border-radius: 50%;
     top: 17%;
+}
+
+
+.date-time-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin-bottom: 2.2em;
+    
+}
+
+.date-time {
+    color: white;
+    padding: 20px 105px;
+    border-radius: 12px;
+    font-size: 2.25em; 
+    font-weight: bold;
+    text-align: center;
+    background-color: #00000041;
 }
