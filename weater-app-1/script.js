@@ -46,14 +46,14 @@ function displayWeather(data) {
     
     
     const images = {
-        "clear": "../images/background-clear.webp",
-        "fog": "../images/background-fog.jpg",
-        "overcast": "../images/background-overcast-clouds.jpg",
-        "cloud": "../images/background-cloud.jpg",
-        "rain": "../images/background-rain.webp",
-        "snow": "../images/background-snowfall.jpg",
-        "storm": "../images/background-storm.jpg",
-        "default": "../images/background-default.webp",
+        "clear": "images/background-clear.webp",
+        "fog": "images/background-fog.jpg",
+        "overcast": "images/background-overcast-clouds.jpg",
+        "cloud": "images/background-cloud.jpg",
+        "rain": "images/background-rain.webp",
+        "snow": "images/background-snowfall.jpg",
+        "storm": "images/background-storm.jpg",
+        "default": "images/background-default.webp",
     };
     changeBackgroundImage(description, images);
     
@@ -164,6 +164,38 @@ function showCurrentDateTime() {
 
     document.getElementById('currentDateTime').textContent = formattedDateTime;
 }
+function getWeekDays() {
+    const daysOfWeek = ["Неделя", "Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота"];
+    const today = new Date();
+    const daysArray = [];
+
+    
+    for (let i = 0; i < 5; i++) {
+        const nextDay = new Date(today);
+        nextDay.setDate(today.getDate() + i);
+        const dayName = daysOfWeek[nextDay.getDay()]; 
+        daysArray.push(dayName);
+    }
+
+    return daysArray;
+}
+
+
+function updateDayNames() {
+    const daysArray = getWeekDays();
+
+
+    document.querySelector(".day1 .day-name").textContent = daysArray[0];
+    document.querySelector(".day2 .day-name").textContent = daysArray[1];
+    document.querySelector(".day3 .day-name").textContent = daysArray[2];
+    document.querySelector(".day4 .day-name").textContent = daysArray[3];
+    document.querySelector(".day5 .day-name").textContent = daysArray[4];
+}
+
+
+window.onload = function() {
+    updateDayNames();
+};
 
 showCurrentDateTime();
 setInterval(showCurrentDateTime, 1000);
