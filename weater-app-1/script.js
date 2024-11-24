@@ -17,23 +17,49 @@ document.getElementById('searchButton').addEventListener('click', function () {
 
 function getWeather(city) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=en`;
-    
+
     document.querySelector('#city-name').textContent = city.toString();
     // the problem here is that it displays the city name in the way it was written
     //but it will do for now
-    
+
     fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-        if (data.cod === 200) {
-            displayWeather(data);
-        } else {
-            showError('Градът не е намерен.');
-        }
-    })
-    .catch((error) => {
-        showError('Нямаме връзка с API-то.');
-    });
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.cod === 200) {
+                displayWeather(data);
+            } else {
+                showError('Градът не е намерен.');
+            }
+        })
+        .catch((error) => {
+            showError('Нямаме връзка с API-то.');
+        });
+}
+
+function getWeatherForFiveDays({ city = null, lat = null, lon = null } = {}) {
+    const dates = getDates();
+    let promises = [];
+    if (city) {
+        promises = dates.map((date) => {
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&date=${date}&appid=${apiKey}&units=metric&lang=en`;
+            return fetch(url).then((response) => response.json());
+        });
+    } else if (lat && lon) {
+        promises = dates.map((date) => {
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&date=${date}&appid=${apiKey}&units=metric&lang=en`;
+            return fetch(url).then((response) => response.json());
+        });
+    }
+
+    Promise.all(promises)
+        .then((data) => {
+            const weekWeatherObj = {};
+            data.forEach((response, index) => {
+                weekWeatherObj[dates[index]] = response;
+            });
+            displayWeatherFiveDays(weekWeatherObj);
+        })
+        .catch((error) => showError('Нямаме връзка с API-то.'));
 }
 
 function getWeatherForFiveDays({ city = null, lat = null, lon = null } = {}) {
@@ -69,7 +95,7 @@ function displayWeather(data) {
     const humidity = data.main.humidity;
     const windSpeed = data.wind.speed.toFixed(0);
     const icon = data.weather[0].icon;
-    
+
     const images = {
         clear: 'images/background-clear.webp',
         fog: 'images/background-fog.jpg',
@@ -81,17 +107,16 @@ function displayWeather(data) {
         default: 'images/background-default.webp',
     };
     changeBackgroundImage(description, images);
-    
+
     const weatherImage = document.getElementById('img-weather');
     weatherImage.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
     weatherImage.alt = description;
-    
+
     document.querySelector('#weatherResult').style.display = 'flex';
     
     document.querySelector('#img-description').textContent = description;
-    
     document.querySelector('#city-degrees').textContent = temperature;
-    
+
     document.querySelector('#feel-temp').textContent = feelsLike;
     document.querySelector(
         '#humidity-info > #feel-temp > #humidity-value'
@@ -102,14 +127,12 @@ function displayWeather(data) {
 }
 
 function displayWeatherFiveDays(data) {
-    console.log(data);
-    
     let count = 0;
     for (const key of Object.keys(data)) {
         count++;
         const response = data[key];
         const currDayEl = document.querySelector(`.five-days > .day${count}`);
-        
+
         const currDayImgEl = currDayEl.querySelector('.image-icon-content > img');
         
         const currDayTempMinEl = currDayEl.querySelector('.temp-data > .degrees-min');
@@ -131,6 +154,7 @@ function displayWeatherFiveDays(data) {
 
 function getWeatherIcon(description) {
     const images = {
+
         clear: 'images/sunny.png',
         snow: 'images/snow.gif',
         storm: 'images/cloudy storm.png',
@@ -139,13 +163,13 @@ function getWeatherIcon(description) {
     };
     
     const typeWeather = description.trim().toLowerCase();
-    
+
     for (let imageName in images) {
         if (typeWeather.includes(imageName)) {
             return images[imageName];
         }
     }
-    
+
     return null;
 }
 
@@ -173,13 +197,13 @@ function showNextFiveDays() {
 function changeBackgroundImage(description, images) {
     const typeWeather = description.trim().toLowerCase();
     const matchingImages = [];
-    
+
     for (let imageName in images) {
         if (typeWeather.includes(imageName)) {
             matchingImages.push(imageName);
         }
     }
-    
+
     if (matchingImages.length > 0) {
         // If there are matches, set the background to the first match
         const selectedImage = matchingImages[0];
@@ -210,11 +234,11 @@ function getLocationWeather() {
 
 function getWeatherByCoordinates(lat, lon) {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
-    
+
     fetch(url)
-    .then((response) => response.json())
-    .then((data) => displayWeather(data))
-    .catch((error) => showError('Нямаме връзка с API-то.'));
+        .then((response) => response.json())
+        .then((data) => displayWeather(data))
+        .catch((error) => showError('Нямаме връзка с API-то.'));
 }
 
 function showCurrentDateTime() {
@@ -245,7 +269,7 @@ function getWeekDays() {
     ];
     const today = new Date();
     const daysArray = [];
-    
+
     for (let i = 0; i < 5; i++) {
         const nextDay = new Date(today);
         nextDay.setDate(today.getDate() + i);
@@ -282,6 +306,7 @@ function updateDayNames() {
     document.querySelector('.day4 .day-name').textContent = daysArray[3];
     document.querySelector('.day5 .day-name').textContent = daysArray[4];
 }
+
 
 window.onload = function () {
     updateDayNames();
