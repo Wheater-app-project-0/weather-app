@@ -314,6 +314,9 @@ form #searchButton:hover {
     width: 80%;
 }
 .temp-data {
+    display: flex;
+    justify-content: center;
+    gap: 0.7em;
     position: relative;
 }
 .temp-data p:after {
@@ -325,7 +328,9 @@ form #searchButton:hover {
     top: 17%;
 }
 
-
+.temp-data span {
+    font-size: 1.29em;
+}
 .date-time-container {
     display: flex;
     justify-content: center; 
