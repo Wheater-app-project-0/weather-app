@@ -284,7 +284,6 @@ form #searchButton:hover {
     justify-content: center;
     gap: 0.5em;
     margin-top: 3em;
-    display: none;
 }
 .day {
     background: #0000008f;

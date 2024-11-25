@@ -60,59 +60,6 @@ function getWeatherForFiveDays({ city = null, lat = null, lon = null } = {}) {
         .catch((error) => showError('Нямаме връзка с API-то.'));
 }
 
-function getWeatherForFiveDays({ city = null, lat = null, lon = null } = {}) {
-    const dates = getDates();
-    let promises = [];
-    if (city) {
-        promises = dates.map((date) => {
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&date=${date}&appid=${apiKey}&units=metric&lang=en`;
-            return fetch(url).then((response) => response.json());
-        });
-    } else if (lat && lon) {
-        promises = dates.map((date) => {
-            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&date=${date}&appid=${apiKey}&units=metric&lang=en`;
-            return fetch(url).then((response) => response.json());
-        });
-    }
-    
-    Promise.all(promises)
-    .then((data) => {
-        const weekWeatherObj = {};
-        data.forEach((response, index) => {
-            weekWeatherObj[dates[index]] = response;
-        });
-        displayWeatherFiveDays(weekWeatherObj);
-    })
-    .catch((error) => showError('Нямаме връзка с API-то.'));
-}
-
-
-function getWeatherForFiveDays({ city = null, lat = null, lon = null } = {}) {
-    const dates = getDates();
-    let promises = [];
-    if (city) {
-        promises = dates.map((date) => {
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&date=${date}&appid=${apiKey}&units=metric&lang=en`;
-            return fetch(url).then((response) => response.json());
-        });
-    } else if (lat && lon) {
-        promises = dates.map((date) => {
-            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&date=${date}&appid=${apiKey}&units=metric&lang=en`;
-            return fetch(url).then((response) => response.json());
-        });
-    }
-    
-    Promise.all(promises)
-    .then((data) => {
-        const weekWeatherObj = {};
-        data.forEach((response, index) => {
-            weekWeatherObj[dates[index]] = response;
-        });
-        displayWeatherFiveDays(weekWeatherObj);
-    })
-    .catch((error) => showError('Нямаме връзка с API-то.'));
-}
-
 function displayWeather(data) {
     const temperature = data.main.temp.toFixed(0);
     const description = data.weather[0].description;
