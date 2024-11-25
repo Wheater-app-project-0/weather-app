@@ -62,6 +62,32 @@ function getWeatherForFiveDays({ city = null, lat = null, lon = null } = {}) {
         .catch((error) => showError('Нямаме връзка с API-то.'));
 }
 
+function getWeatherForFiveDays({ city = null, lat = null, lon = null } = {}) {
+    const dates = getDates();
+    let promises = [];
+    if (city) {
+        promises = dates.map((date) => {
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&date=${date}&appid=${apiKey}&units=metric&lang=en`;
+            return fetch(url).then((response) => response.json());
+        });
+    } else if (lat && lon) {
+        promises = dates.map((date) => {
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&date=${date}&appid=${apiKey}&units=metric&lang=en`;
+            return fetch(url).then((response) => response.json());
+        });
+    }
+    
+    Promise.all(promises)
+    .then((data) => {
+        const weekWeatherObj = {};
+        data.forEach((response, index) => {
+            weekWeatherObj[dates[index]] = response;
+        });
+        displayWeatherFiveDays(weekWeatherObj);
+    })
+    .catch((error) => showError('Нямаме връзка с API-то.'));
+}
+
 function displayWeather(data) {
     const temperature = data.main.temp.toFixed(0);
     const description = data.weather[0].description;
@@ -87,9 +113,8 @@ function displayWeather(data) {
     weatherImage.alt = description;
 
     document.querySelector('#weatherResult').style.display = 'flex';
-
+    
     document.querySelector('#img-description').textContent = description;
-
     document.querySelector('#city-degrees').textContent = temperature;
 
     document.querySelector('#feel-temp').textContent = feelsLike;
@@ -108,30 +133,35 @@ function displayWeatherFiveDays(data) {
         const response = data[key];
         const currDayEl = document.querySelector(`.five-days > .day${count}`);
 
-        const currDayImgEl = currDayEl.querySelector('#icon');
-        const currDayTempEl = currDayEl.querySelector('.temp-data > .degrees');
-
-        const temp = Math.ceil(response.main.temp_max).toFixed(0);
+        const currDayImgEl = currDayEl.querySelector('.image-icon-content > img');
+        
+        const currDayTempMinEl = currDayEl.querySelector('.temp-data > .degrees-min');
+        const currDayTempMaxEl = currDayEl.querySelector('.temp-data > .degrees-max');
+        
+        const tempMin = Math.ceil(response.main.temp_min).toFixed(0);
+        const tempMax = Math.ceil(response.main.temp_max).toFixed(0);
         const description = response.weather[0].description;
         const iconUrl = getWeatherIcon(description);
-
+        
         console.log(description);
         console.log(currDayEl);
-        console.log(temp);
-        currDayTempEl.textContent = temp;
+        console.log(tempMin);
+        currDayTempMinEl.textContent = tempMin;
+        currDayTempMaxEl.textContent = tempMax;
         currDayImgEl.src = iconUrl;
     }
 }
 
 function getWeatherIcon(description) {
     const images = {
-        sunny: 'images/sunny.png',
+
+        clear: 'images/sunny.png',
         snow: 'images/snow.gif',
         storm: 'images/cloudy storm.png',
         cloud: 'images/clouds.gif',
         rain: 'images/rain.gif',
     };
-
+    
     const typeWeather = description.trim().toLowerCase();
 
     for (let imageName in images) {
@@ -222,9 +252,9 @@ function showCurrentDateTime() {
         minute: '2-digit',
         second: '2-digit',
     };
-
+    
     const formattedDateTime = now.toLocaleDateString('bg-BG', options);
-
+    
     document.getElementById('currentDateTime').textContent = formattedDateTime;
 }
 function getWeekDays() {
@@ -246,15 +276,15 @@ function getWeekDays() {
         const dayName = daysOfWeek[nextDay.getDay()];
         daysArray.push(dayName);
     }
-
+    
     return daysArray;
 }
 
 function getDates() {
     const today = new Date(); // returns date object of the current date and time
-
+    
     const days = [];
-
+    
     for (let i = 0; i < 5; i++) {
         const nextDay = new Date(today.getTime() + 86400000 * i);
         const year = nextDay.getFullYear();
@@ -263,19 +293,20 @@ function getDates() {
         const formattedDayInfo = `${year}-${month}-${date}`; //YYYY-MM-DD
         days.push(formattedDayInfo);
     }
-
+    
     return days;
 }
 
 function updateDayNames() {
     const daysArray = getWeekDays();
-
+    
     document.querySelector('.day1 .day-name').textContent = daysArray[0];
     document.querySelector('.day2 .day-name').textContent = daysArray[1];
     document.querySelector('.day3 .day-name').textContent = daysArray[2];
     document.querySelector('.day4 .day-name').textContent = daysArray[3];
     document.querySelector('.day5 .day-name').textContent = daysArray[4];
 }
+
 
 window.onload = function () {
     updateDayNames();
