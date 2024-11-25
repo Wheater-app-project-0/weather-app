@@ -86,6 +86,7 @@ function getWeatherForFiveDays({ city = null, lat = null, lon = null } = {}) {
     .catch((error) => showError('Нямаме връзка с API-то.'));
 }
 
+
 function getWeatherForFiveDays({ city = null, lat = null, lon = null } = {}) {
     const dates = getDates();
     let promises = [];
