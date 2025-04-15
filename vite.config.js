@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/',
+  base: './',
 
-  plugins: [],
+  plugins: [react()],
 
   server: {
     port: 3000,

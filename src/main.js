@@ -1,3 +1,5 @@
+import './style.css';
+
 const apiKey = import.meta.env.VITE_API_KEY;
 
 const fiveDaysContainer = document.getElementById('fiveDays-info');
