@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
 
@@ -9,19 +8,19 @@
 }
 
 html {
-    font: 10px/1.5 "Lato", sans-serif;
+    font: 8px/1.5 "Lato", sans-serif;
 }
 
 @media (min-width: 600px) {
-    html { font-size: 11px; }
+    html { font-size: 9px; }
 }
 
 @media (min-width: 800px) {
-    html { font-size: 12px; }
+    html { font-size: 10px; }
 }
 
 @media (min-width: 1200px) {
-    html { font-size: 16px; }
+    html { font-size: 14px; }
 }
 
 body, input, button, textarea, table, address, th, td {
@@ -31,7 +30,7 @@ body, input, button, textarea, table, address, th, td {
 body {
     background: linear-gradient(rgba(0, 0, 0, 0.4),
     rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1),
-     rgba(0, 0, 0, 0.2)), url('images/background-default.webp')
+     rgba(0, 0, 0, 0.2)), url('/public/images/background-default.webp')
     no-repeat fixed center;
     background-size: cover;
     color: #fff;
@@ -68,7 +67,7 @@ li {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 75em;
     margin: 5.5em auto;
     display: flex;
     justify-content: center;
@@ -77,6 +76,10 @@ li {
     0 0 0.12em #fff,
     0 0 0.12em #fff;
     transition: opacity 0.3s ease-in-out;
+}
+.container {
+    transform: scale(0.9);
+    transform-origin: top center;
 }
 .container h1 {
     font-size: 4.8em;
@@ -128,7 +131,6 @@ form #searchButton:hover {
 .result-container {
     display: flex;
     flex-direction: column;
-    /* font-size: x-large; */
     font-size: 1.5em;
 }
 
@@ -233,8 +235,8 @@ form #searchButton:hover {
 }
 
 .info-container .fa-solid {
-    font-size: 0.7em;
-    margin-left: 0.3em;
+    font-size: 0.5em;
+    margin-left: 0.2em;
 }
 
 
@@ -284,10 +286,9 @@ form #searchButton:hover {
     justify-content: center;
     gap: 0.5em;
     margin-top: 3em;
-    display: none;
 }
 .day {
-    background: #0000008f;
+    background: #302f2f8f;
     width: 17%;
     padding: 1em 0;
 }
@@ -348,4 +349,7 @@ form #searchButton:hover {
     font-weight: bold;
     text-align: center;
     background-color: #00000041;
+}
+.fa-droplet {
+    color: #2a94d5;
 }

@@ -1,0 +1,6 @@
+services:
+  - type: static
+    name: weather-app
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist

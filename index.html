@@ -4,8 +4,8 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Weather forecast</title>
-        <link rel="stylesheet" href="styles.css" />
-        <link rel="stylesheet" href="responsive.css" />
+        <link rel="stylesheet" href="/src/style.css?direct" />
+        <link rel="stylesheet" href="/src/responsive.css" />
     </head>
     <body>
         <div class="container">
@@ -22,7 +22,7 @@
 
             <div id="weatherResult" class="result-container">
                 <div class="buttons-container">
-                    <button id="day-btn" class="btn day-btn" autofocus>
+                    <button id="day-btn" class="btn day-btn active" autofocus>
                         Today
                     </button>
                     <button id="week-btn" class="btn week-btn">5-Days</button>
@@ -131,6 +131,6 @@
             </div>
             <div id="errorMessage" class="error"></div>
         </div>
-        <script src="script.js"></script>
+        <script type="module" src="src/main.js"></script>
     </body>
 </html>
