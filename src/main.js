@@ -169,18 +169,18 @@ function displayWeather(data) {
     const icon = data.weather[0].icon;
 
     const cityImages = {
-        софия: 'public/images/sofia.jpg',
-        sofia: 'public/images/sofia.jpg',
-        пловдив: 'public/images/plovdiv.jpg',
-        plovdiv: 'public/images/plovdiv.jpg',
-        варна: 'public/images/varna.jpg',
-        varna: 'public/images/varna.jpg',
-        бургас: 'public/images/burgas.jpg',
-        burgas: 'public/images/burgas.jpg',
-        'стара загора': 'public/images/stara-zagora.jpg',
-        'stara zagora': 'public/images/stara-zagora.jpg',
-        говедарци: 'public/images/govedarci.jpg',
-        govedarci: 'public/images/govedarci.jpg',
+        софия: '/images/sofia.jpg',
+        sofia: '/images/sofia.jpg',
+        пловдив: '/images/plovdiv.jpg',
+        plovdiv: '/images/plovdiv.jpg',
+        варна: '/images/varna.jpg',
+        varna: '/images/varna.jpg',
+        бургас: '/images/burgas.jpg',
+        burgas: '/images/burgas.jpg',
+        'стара загора': '/images/stara-zagora.jpg',
+        'stara zagora': '/images/stara-zagora.jpg',
+        говедарци: '/images/govedarci.jpg',
+        govedarci: '/images/govedarci.jpg',
     };
 
     const cityName = data.name.toLowerCase();
@@ -191,14 +191,14 @@ function displayWeather(data) {
         document.body.style.backgroundAttachment = 'fixed';
     } else {
         const weatherImages = {
-            clear: 'public/images/background-clear.webp',
-            fog: 'public/images/background-fog.jpg',
-            overcast: 'public/images/background-overcast-clouds.jpg',
-            cloud: 'public/images/background-cloud.jpg',
-            rain: 'public/images/background-rain.webp',
-            snow: 'public/images/background-snowfall.jpg',
-            storm: 'public/images/background-storm.jpg',
-            default: 'public/images/background-default.webp',
+            clear: '/images/background-clear.webp',
+            fog: '/images/background-fog.jpg',
+            overcast: '/images/background-overcast-clouds.jpg',
+            cloud: '/images/background-cloud.jpg',
+            rain: '/images/background-rain.webp',
+            snow: '/images/background-snowfall.jpg',
+            storm: '/images/background-storm.jpg',
+            default: '/images/background-default.webp',
         };
         changeBackgroundImage(description, weatherImages);
     }
