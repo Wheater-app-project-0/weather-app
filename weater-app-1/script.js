@@ -35,30 +35,127 @@ function getWeather(city) {
 }
 
 function getWeatherForFiveDays({ city = null, lat = null, lon = null } = {}) {
-    const dates = getDates();
-    let promises = [];
+    let url = '';
+
     if (city) {
-        promises = dates.map((date) => {
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&date=${date}&appid=${apiKey}&units=metric&lang=en`;
-            return fetch(url).then((response) => response.json());
-        });
+        url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=en`;
     } else if (lat && lon) {
-        promises = dates.map((date) => {
-            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&date=${date}&appid=${apiKey}&units=metric&lang=en`;
-            return fetch(url).then((response) => response.json());
-        });
+        url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
+    } else {
+        return;
     }
 
-    Promise.all(promises)
+    fetch(url)
+        .then((response) => response.json())
         .then((data) => {
-            const weekWeatherObj = {};
-            data.forEach((response, index) => {
-                weekWeatherObj[dates[index]] = response;
+            const todayStr = new Date().toISOString().split('T')[0];
+
+            const filteredList = data.list.filter(item => {
+                const [date] = item.dt_txt.split(' ');
+                return date !== todayStr;
             });
-            displayWeatherFiveDays(weekWeatherObj);
+            const dailyForecast = extractDailyForecast(filteredList);
+            displayWeatherFiveDays(dailyForecast);
         })
         .catch((error) => showError('Нямаме връзка с API-то.'));
 }
+
+
+function extractDailyForecast(forecastList) {
+    const groupedByDate = {};
+
+    forecastList.forEach(item => {
+        const [date, time] = item.dt_txt.split(' ');
+
+        if (!groupedByDate[date]) {
+            groupedByDate[date] = {
+                temps: [],
+                weatherIcons: [],
+                allItems: [],
+                earliest: item,
+                latest: item
+            };
+        }
+
+        groupedByDate[date].temps.push(item.main.temp);
+        groupedByDate[date].weatherIcons.push(item.weather[0]);
+        groupedByDate[date].allItems.push(item);
+
+        if (item.dt_txt < groupedByDate[date].earliest.dt_txt) {
+            groupedByDate[date].earliest = item;
+        }
+
+        if (item.dt_txt > groupedByDate[date].latest.dt_txt) {
+            groupedByDate[date].latest = item;
+        }
+
+        if (time === '06:00:00') {
+            groupedByDate[date].minTemp = item.main.temp;
+            groupedByDate[date].weatherMin = item.weather[0];
+        }
+
+        if (time === '15:00:00') {
+            groupedByDate[date].maxTemp = item.main.temp;
+            groupedByDate[date].weatherMax = item.weather[0];
+        }
+    });
+
+    const result = [];
+    const todayStr = new Date().toISOString().split('T')[0];
+    const sortedDates = Object.keys(groupedByDate).sort();
+
+    for (let date of sortedDates) {
+        if (date === todayStr) continue;
+
+        const dayData = groupedByDate[date];
+        if (dayData.minTemp === undefined) {
+            const earlyMorning = dayData.allItems.find(i => i.dt_txt.includes('03:00:00') || i.dt_txt.includes('09:00:00'));
+            if (earlyMorning) {
+                dayData.minTemp = earlyMorning.main.temp;
+                dayData.weatherMin = earlyMorning.weather[0];
+            }
+        }
+        if (dayData.maxTemp === undefined) {
+            const afternoon = dayData.allItems.find(i => i.dt_txt.includes('12:00:00') || i.dt_txt.includes('18:00:00'));
+            if (afternoon) {
+                dayData.maxTemp = afternoon.main.temp;
+                dayData.weatherMax = afternoon.weather[0];
+            }
+        }
+
+
+        const minTemp = dayData.minTemp !== undefined
+            ? dayData.minTemp
+            : Math.min(...dayData.temps);
+        const maxTemp = dayData.maxTemp !== undefined
+            ? dayData.maxTemp
+            : Math.max(...dayData.temps);
+
+        const description =
+            dayData.weatherMax?.description ||
+            dayData.latest.weather[0].description ||
+            dayData.weatherMin?.description ||
+            'clear';
+        const icon =
+            dayData.weatherMax?.icon ||
+            dayData.latest.weather[0].icon ||
+            dayData.weatherMin?.icon ||
+            '01d';
+
+        result.push({
+            date,
+            temp_min: minTemp,
+            temp_max: maxTemp,
+            description: description,
+            icon: icon,
+        });
+
+        if (result.length === 5) break;
+    }
+
+    return result;
+}
+
 
 function displayWeather(data) {
     const temperature = data.main.temp.toFixed(0);
@@ -120,35 +217,33 @@ function displayWeather(data) {
     ).textContent = windSpeed;
 }
 
-function displayWeatherFiveDays(data) {
-    let count = 0;
-    for (const key of Object.keys(data)) {
-        count++;
-        const response = data[key];
-        const currDayEl = document.querySelector(`.five-days > .day${count}`);
 
+function displayWeatherFiveDays(forecasts) {
+    forecasts.forEach((forecast, index) => {
+        const currDayEl = document.querySelector(`.five-days > .day${index + 1}`);
         const currDayImgEl = currDayEl.querySelector('.image-icon-content > img');
-        
         const currDayTempMinEl = currDayEl.querySelector('.temp-data > .degrees-min');
         const currDayTempMaxEl = currDayEl.querySelector('.temp-data > .degrees-max');
-        
-        const tempMin = Math.ceil(response.main.temp_min).toFixed(0);
-        const tempMax = Math.ceil(response.main.temp_max).toFixed(0);
-        const description = response.weather[0].description;
-        const iconUrl = getWeatherIcon(description);
-        
-        console.log(description);
-        console.log(currDayEl);
-        console.log(tempMin);
+
+        const tempMin = Math.round(forecast.temp_min);
+        const tempMax = Math.round(forecast.temp_max);
+        const description = forecast.description;
+        // const iconUrl = getWeatherIcon(description);
+        const iconCode = forecast.icon;
+        const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
         currDayTempMinEl.textContent = tempMin;
         currDayTempMaxEl.textContent = tempMax;
-        currDayImgEl.src = iconUrl;
-    }
+
+        if (iconUrl) {
+            currDayImgEl.src = iconUrl;
+            currDayImgEl.alt = description;
+        }
+    });
 }
 
 function getWeatherIcon(description) {
     const images = {
-
         clear: 'images/sunny.png',
         snow: 'images/snow.gif',
         storm: 'images/cloudy storm.png',
@@ -166,6 +261,7 @@ function getWeatherIcon(description) {
 
     return null;
 }
+
 // hidden five days screen
 fiveDaysContainer.style.display = 'none';
 
@@ -232,7 +328,7 @@ function getWeatherByCoordinates(lat, lon) {
     fetch(url)
         .then((response) => response.json())
         .then((data) => displayWeather(data))
-        .catch((error) => showError('Нямаме връзка с API-то.'));
+        .catch((error) => showError('Connection lost!'));
 }
 
 function showCurrentDateTime() {
@@ -244,7 +340,6 @@ function showCurrentDateTime() {
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
-        second: '2-digit',
     };
     
     const formattedDateTime = now.toLocaleDateString('bg-BG', options);
@@ -264,7 +359,7 @@ function getWeekDays() {
     const today = new Date();
     const daysArray = [];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 1; i <= 5; i++) {
         const nextDay = new Date(today);
         nextDay.setDate(today.getDate() + i);
         const dayName = daysOfWeek[nextDay.getDay()];
@@ -275,16 +370,16 @@ function getWeekDays() {
 }
 
 function getDates() {
-    const today = new Date(); // returns date object of the current date and time
+    const today = new Date();
     
     const days = [];
     
-    for (let i = 0; i < 5; i++) {
+    for (let i = 1; i <= 5; i++) {
         const nextDay = new Date(today.getTime() + 86400000 * i);
         const year = nextDay.getFullYear();
-        const month = nextDay.getMonth() + 1; // getMonth() returns 0-11, so add 1
+        const month = nextDay.getMonth() + 1;
         const date = nextDay.getDate();
-        const formattedDayInfo = `${year}-${month}-${date}`; //YYYY-MM-DD
+        const formattedDayInfo = `${year}-${month}-${date}`;
         days.push(formattedDayInfo);
     }
     
