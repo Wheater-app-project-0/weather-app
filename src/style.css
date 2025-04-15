@@ -195,7 +195,7 @@ form #searchButton:hover {
 
 .info-container {
     background: linear-gradient(rgba(0, 0, 0, 0.4),
-    rgba(0, 0, 0, 0.3));
+    rgba(0, 0, 0, 0.5));
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -203,7 +203,7 @@ form #searchButton:hover {
     color: #fff;
     gap: 1.5em;
     font-size: 3em;
-    padding: 0.5em 1.7em;
+    padding: 0.5em 1.5em;
     border-radius: 0.3em;
 }
 
@@ -288,7 +288,7 @@ form #searchButton:hover {
     margin-top: 3em;
 }
 .day {
-    background: #302f2f8f;
+    background: #2726268f;
     width: 17%;
     padding: 1em 0;
 }
