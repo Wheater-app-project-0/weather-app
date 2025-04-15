@@ -25,7 +25,9 @@ Built With 🛠️
 🎨 CSS for styling
 ⚙️ JavaScript for interactivity
 🌍 OpenWeather API for live weather data
-License 📜 This project is licensed under the MIT License. Feel free to use, modify, and distribute it as per the license terms.
+License 📜 This project is licensed under the MIT License. Feel free to use, modify, and distribute it as per the license terms
+
+You can visit the site at this link: https://weather-forecast-hee4.onrender.com
 
 For test you need to execute these commands: 
   - npm install
