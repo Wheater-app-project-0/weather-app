@@ -7,7 +7,8 @@ const dayContainer = document.getElementById('day-info');
 
 getLocationWeather();
 
-document.getElementById('searchButton').addEventListener('click', function () {
+document.getElementById('searchButton').addEventListener('click', function (event) {
+    event.preventDefault(); 
     const city = document.getElementById('cityInput').value;
     if (city) {
         getWeather(city);
