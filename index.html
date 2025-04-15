@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="bg">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Weather forecast</title>
-        <link rel="stylesheet" href="/src/style.css?direct" />
-        <link rel="stylesheet" href="/src/responsive.css" />
-    </head>
-    <body>
-        <div class="container">
-            <h1>Weather Forecast</h1>
-            <form action="#" method="get">
-                <input type="text" id="cityInput" placeholder="Insert City" />
-                <button id="searchButton">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather forecast</title>
+    <link rel="stylesheet" href="/src/style.css?direct" />
+    <link rel="stylesheet" href="/src/responsive.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Forecast</h1>
+        <form action="#" method="get">
+            <input type="text" id="cityInput" placeholder="Insert City" />
+            <button id="searchButton">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+        <div class="date-time-container">
+            <div id="currentDateTime" class="date-time"></div>
+        </div>
+        
+        <div id="weatherResult" class="result-container">
+            <div class="buttons-container">
+                <button id="day-btn" class="btn day-btn active" autofocus>
+                    Today
                 </button>
-            </form>
-            <div class="date-time-container">
-                <div id="currentDateTime" class="date-time"></div>
+                <button id="week-btn" class="btn week-btn">5-Days</button>
             </div>
-
-            <div id="weatherResult" class="result-container">
-                <div class="buttons-container">
-                    <button id="day-btn" class="btn day-btn active" autofocus>
-                        Today
-                    </button>
-                    <button id="week-btn" class="btn week-btn">5-Days</button>
-                </div>
-
-                <section class="five-days" id="fiveDays-info">
-                    <div class="day day1">
-                        <h3 class="day-name">Monday</h3>
+            
+            <section class="five-days" id="fiveDays-info">
+                <div class="day day1">
+                    <h3 class="day-name">Monday</h3>
+                    <div class="degrees-icon">
                         <article class="image-icon-content image1">
                             <img id="icon1" src="images/sunny.png" alt="" />
                         </article>
@@ -40,8 +41,11 @@
                             <p class="degrees degrees-max">20</p>
                         </article>
                     </div>
-                    <div class="day day2">
-                        <h3 class="day-name">Tuesday</h3>
+                </div>
+
+                <div class="day day2">
+                    <h3 class="day-name">Tuesday</h3>
+                    <div class="degrees-icon"> 
                         <article class="image-icon-content">
                             <img id="icon2" src="images/cloudy storm.png" alt=""/>
                         </article>
@@ -50,9 +54,12 @@
                             <span>/</span>
                             <p class="degrees degrees-max">20</p>
                         </article>
-                    </div>
-                    <div class="day day3">
-                        <h3 class="day-name">Wednesday</h3>
+                    </div>  
+                </div>
+
+                <div class="day day3">
+                    <h3 class="day-name">Wednesday</h3>
+                    <div class="degrees-icon"> 
                         <article class="image-icon-content">
                             <img id="icon3" src="images/sunny.png" alt="" />
                         </article>
@@ -62,8 +69,11 @@
                             <p class="degrees degrees-max">20</p>
                         </article>
                     </div>
-                    <div class="day day4">
-                        <h3 class="day-name">Thursday</h3>
+                </div>
+
+                <div class="day day4">
+                    <h3 class="day-name">Thursday</h3>
+                    <div class="degrees-icon">
                         <article class="image-icon-content">
                             <img id="icon4" src="images/cloudy storm.png" alt=""/>
                         </article>
@@ -73,8 +83,11 @@
                             <p class="degrees degrees-max">20</p>
                         </article>
                     </div>
-                    <div class="day day5">
-                        <h3 class="day-name">Friday</h3>
+                </div>
+                
+                <div class="day day5">
+                    <h3 class="day-name">Friday</h3>
+                    <div class="degrees-icon">
                         <article class="image-icon-content image5">
                             <img id="icon5" src="images/sunny.png" alt="" />
                         </article>
@@ -84,53 +97,55 @@
                             <p class="degrees degrees-max">20</p>
                         </article>
                     </div>
-                </section>
-
-                <section class="head-info" id="day-info">
-                    <article class="weather-image">
-                        <img
-                            id="img-weather"
-                            src="images/cloudy.png"
-                            alt="img"
-                        />
-                        <p id="img-description">Cloudy</p>
+                </div>
+            </section>
+            
+            <section class="head-info" id="day-info">
+                <article class="weather-image">
+                    <img
+                    id="img-weather"
+                    src="images/cloudy.png"
+                    alt="img"
+                    />
+                    <p id="img-description">Cloudy</p>
+                </article>
+                <article class="city-name-degrees">
+                    <div class="name-container">
+                        <i class="fa-solid fa-location-arrow"></i>
+                        <h3 id="city-name">Sofia</h3>
+                    </div>
+                    <div class="degrees-container">
+                        <p id="city-degrees" class="degrees">20</p>
+                    </div>
+                </article>
+            </section>
+            <section class="additional-info">
+                <div class="info-container">
+                    <article id="feels-info" class="data feels-like">
+                        <p id="feel-temp" class="degrees">12</p>
+                        <p class="text">Feels Like</p>
                     </article>
-                    <article class="city-name-degrees">
-                        <div class="name-container">
-                            <i class="fa-solid fa-location-arrow"></i>
-                            <h3 id="city-name">Sofia</h3>
-                        </div>
-                        <div class="degrees-container">
-                            <p id="city-degrees" class="degrees">20</p>
-                        </div>
-                    </article>
-                </section>
-                <section class="additional-info">
-                    <div class="info-container">
-                        <article id="feels-info" class="data feels-like">
-                            <p id="feel-temp" class="degrees">12</p>
-                            <p class="text">Feels Like</p>
-                        </article>
-                        <article id="humidity-info" class="data humidity">
-                            <p id="feel-temp">
-                                <span id="humidity-value">65</span
+                    <article id="humidity-info" class="data humidity">
+                        <p id="feel-temp">
+                            <span id="humidity-value">65</span
                                 ><span>%</span>
                             </p>
                             <span class="text">Humidity</span
-                            ><i class="fa-solid fa-droplet"></i>
-                        </article>
-                        <article id="winds-info" class="data winds">
-                            <p id="wind-temp">
-                                <span id="wind-value">3</span> KPH
-                            </p>
-                            <span class="text">Winds</span
-                            ><i class="fa-solid fa-wind"></i>
-                        </article>
+                                ><i class="fa-solid fa-droplet"></i>
+                            </article>
+                            <article id="winds-info" class="data winds">
+                                <p id="wind-temp">
+                                    <span id="wind-value">3</span> KPH
+                                </p>
+                                <span class="text">Winds</span
+                                    ><i class="fa-solid fa-wind"></i>
+                                </article>
+                            </div>
+                        </section>
                     </div>
-                </section>
-            </div>
-            <div id="errorMessage" class="error"></div>
-        </div>
-        <script type="module" src="src/main.js"></script>
-    </body>
-</html>
+                    <div id="errorMessage" class="error"></div>
+                </div>
+                <script type="module" src="src/main.js"></script>
+            </body>
+            </html>
+            

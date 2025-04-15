@@ -1,4 +1,5 @@
 import './style.css';
+import './responsive.css';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -21,9 +22,17 @@ document.getElementById('searchButton').addEventListener('click', function (even
 function getWeather(city) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=en`;
 
-    document.querySelector('#city-name').textContent = city.toString();
+    const formatCityName = (name) => {
+        return name
+            .toLowerCase()
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    };
 
-    return fetch(url)
+    document.querySelector('#city-name').textContent = formatCityName(city.toString());
+
+    fetch(url)
         .then((response) => response.json())
         .then((data) => {
             if (data.cod === 200) {

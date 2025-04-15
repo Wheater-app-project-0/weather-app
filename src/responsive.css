@@ -28,6 +28,7 @@
 
     form {
         display: flex;
+        position: relative;
         flex-direction: column;
         gap: 10px;
         align-items: center;
@@ -50,7 +51,6 @@
     }
 
     #searchButton:hover {
-
         left: 82%
     }
 
@@ -92,12 +92,12 @@
     }
 
     .city-name-degrees h3 {
-        font-size: 1.5em;
+        font-size: 2.8em;
         margin: 0;
     }
 
     .city-name-degrees p {
-        font-size: 2.5em;
+        font-size: 3em;
         font-weight: bold;
         margin: 0;
         position: relative;
@@ -105,33 +105,51 @@
 
     .city-name-degrees p::after {
         content: '°';
-        font-size: 1.2em;
+        font-size: 1.1em;
         position: absolute;
-        top: 0;
-        right: -0.5em;
+        top: -0.2em;
+        right: 0;
         border: none;
-    }
-
-
-    .additional-info {
-        margin-top: 20px;
-        padding: 10px;
-        background: rgba(0, 0, 0, 0.5);
-        border-radius: 10px;
-        color: white;
     }
 
     .info-container {
         display: flex;
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
+        width: 100%;
+        gap: 1em;
+        font-size: 2.1em;
+        padding: 1em 1.2em;
     }
 
     .info-container p {
         font-size: 1em;
     }
 
-    
+    /* =========================== */
+
+    .five-days {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .five-days .day{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 5.5em;
+        padding: 0em 2.5em;
+        border-radius: 0.8em;
+    }
+    .day .degrees-icon {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1em;
+    }
+
+    .day .image-icon-content{
+        width: 30%;
+    }
 
 }
