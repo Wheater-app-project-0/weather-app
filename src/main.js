@@ -1,4 +1,4 @@
-const apiKey = '784309b309418bff1d9696f579f52d33';
+const apiKey = import.meta.env.VITE_API_KEY;
 
 const fiveDaysContainer = document.getElementById('fiveDays-info');
 const dayContainer = document.getElementById('day-info');
@@ -20,7 +20,7 @@ function getWeather(city) {
 
     document.querySelector('#city-name').textContent = city.toString();
 
-    fetch(url)
+    return fetch(url)
         .then((response) => response.json())
         .then((data) => {
             if (data.cod === 200) {
@@ -28,6 +28,7 @@ function getWeather(city) {
             } else {
                 showError('Градът не е намерен.');
             }
+            return data;
         })
         .catch((error) => {
             showError('Нямаме връзка с API-то.');
@@ -166,18 +167,18 @@ function displayWeather(data) {
     const icon = data.weather[0].icon;
 
     const cityImages = {
-        софия: 'images/sofia.jpg',
-        sofia: 'images/sofia.jpg',
-        пловдив: 'images/plovdiv.jpg',
-        plovdiv: 'images/plovdiv.jpg',
-        варна: 'images/varna.jpg',
-        varna: 'images/varna.jpg',
-        бургас: 'images/burgas.jpg',
-        burgas: 'images/burgas.jpg',
-        'стара загора': 'images/stara-zagora.jpg',
-        'stara zagora': 'images/stara-zagora.jpg',
-        говедарци: 'images/govedarci.jpg',
-        govedarci: 'images/govedarci.jpg',
+        софия: 'public/images/sofia.jpg',
+        sofia: 'public/images/sofia.jpg',
+        пловдив: 'public/images/plovdiv.jpg',
+        plovdiv: 'public/images/plovdiv.jpg',
+        варна: 'public/images/varna.jpg',
+        varna: 'public/images/varna.jpg',
+        бургас: 'public/images/burgas.jpg',
+        burgas: 'public/images/burgas.jpg',
+        'стара загора': 'public/images/stara-zagora.jpg',
+        'stara zagora': 'public/images/stara-zagora.jpg',
+        говедарци: 'public/images/govedarci.jpg',
+        govedarci: 'public/images/govedarci.jpg',
     };
 
     const cityName = data.name.toLowerCase();
@@ -185,16 +186,17 @@ function displayWeather(data) {
     if (cityName in cityImages) {
         console.log('Градът има специално изображение:', cityName);
         document.body.style.backgroundImage = `url(${cityImages[cityName]})`;
+        document.body.style.backgroundAttachment = 'fixed';
     } else {
         const weatherImages = {
-            clear: 'images/background-clear.webp',
-            fog: 'images/background-fog.jpg',
-            overcast: 'images/background-overcast-clouds.jpg',
-            cloud: 'images/background-cloud.jpg',
-            rain: 'images/background-rain.webp',
-            snow: 'images/background-snowfall.jpg',
-            storm: 'images/background-storm.jpg',
-            default: 'images/background-default.webp',
+            clear: 'public/images/background-clear.webp',
+            fog: 'public/images/background-fog.jpg',
+            overcast: 'public/images/background-overcast-clouds.jpg',
+            cloud: 'public/images/background-cloud.jpg',
+            rain: 'public/images/background-rain.webp',
+            snow: 'public/images/background-snowfall.jpg',
+            storm: 'public/images/background-storm.jpg',
+            default: 'public/images/background-default.webp',
         };
         changeBackgroundImage(description, weatherImages);
     }
@@ -244,11 +246,11 @@ function displayWeatherFiveDays(forecasts) {
 
 function getWeatherIcon(description) {
     const images = {
-        clear: 'images/sunny.png',
-        snow: 'images/snow.gif',
-        storm: 'images/cloudy storm.png',
-        cloud: 'images/clouds.gif',
-        rain: 'images/rain.gif',
+        clear: 'public/images/sunny.png',
+        snow: 'public/images/snow.gif',
+        storm: 'public/images/cloudy storm.png',
+        cloud: 'public/images/clouds.gif',
+        rain: 'public/images/rain.gif',
     };
     
     const typeWeather = description.trim().toLowerCase();
@@ -299,8 +301,10 @@ function changeBackgroundImage(description, images) {
     if (matchingImages.length > 0) {
         const selectedImage = matchingImages[0];
         document.body.style.backgroundImage = `url(${images[selectedImage]})`;
+        document.body.style.backgroundAttachment = 'fixed';
     } else {
         document.body.style.backgroundImage = `url(${images['default']})`;
+        document.body.style.backgroundAttachment = 'fixed';
     }
 }
 
@@ -403,3 +407,4 @@ window.onload = function () {
 
 showCurrentDateTime();
 setInterval(showCurrentDateTime, 1000);
+
