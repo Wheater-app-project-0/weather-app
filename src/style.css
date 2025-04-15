@@ -67,7 +67,7 @@ li {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 75em;
     margin: 5.5em auto;
     display: flex;
     justify-content: center;
