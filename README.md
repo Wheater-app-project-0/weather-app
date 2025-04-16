@@ -13,7 +13,7 @@ Fully responsive and optimized for mobile devices, providing a seamless experien
 
 Usage 🖥️
 
-Search for a City Use the search bar to select a city and retrieve weather data.
+Search for a City Use the search bar to select a city and retrieve weather data!
 
 View Weather Details
 
